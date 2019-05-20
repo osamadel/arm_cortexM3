@@ -33,7 +33,6 @@
 #define DIO_U8_PIN29        29
 #define DIO_U8_PIN30        30
 #define DIO_U8_PIN31        31
-
 /* PIN32 --> PORTC : B-13 */
 #define DIO_U8_PIN32        45
 #define DIO_U8_PIN33        46
