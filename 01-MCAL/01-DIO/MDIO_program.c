@@ -15,7 +15,7 @@ void MDIO_voidInitialize(void) {
 void MDIO_voidSetPinValue (u8 Copy_u8PinNo, u8 Copy_u8PinVal) {
 
     u8 Local_u8Port = Copy_u8PinNo / DIO_U8_PORT_SIZE;
-    u8 Local_u8Pin  = Copy_u8PinNo & DIO_U8_PORT_SIZE;
+    u8 Local_u8Pin  = Copy_u8PinNo % DIO_U8_PORT_SIZE;
     if ( Copy_u8PinVal == DIO_U8_HIGH ) {
 
         switch (Local_u8Port)

@@ -41,9 +41,9 @@
 #define DIO_U8_HIGH         1
 #define DIO_U8_LOW          0
 
-void MDIO_voidInitialize(void);
-void MDIO_voidSetPinValue (u8 Copy_u8PinNo, u8 Copy_u8PinVal);
-void MDIO_voidGetPinValue (u8 Copy_u8PinNo, u8 * Copy_u8PinVal);
-void MDIO_voidSetPinMode (u8 Copy_u8PinNo, u8 Copy_u8PinMode);
+void MDIO_voidInitialize	(void);
+void MDIO_voidSetPinValue 	(u8 Copy_u8PinNo, u8 Copy_u8PinVal);
+void MDIO_voidGetPinValue 	(u8 Copy_u8PinNo, u8 * Copy_u8PinVal);
+void MDIO_voidSetPinMode 	(u8 Copy_u8PinNo, u8 Copy_u8PinMode);
 
 #endif
