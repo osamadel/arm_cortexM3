@@ -1,0 +1,8 @@
+#ifndef _LDELAY_PRIVATE_H_
+#define _LDELAY_PRIVATE_H_
+
+#define LDELAY_U8_LOOP_TIME             133
+#define LDELAY_U16_CALCULATION_TIME     696
+#define LDELAY_U16_CONTEXT_SWITCH       1710
+
+#endif
