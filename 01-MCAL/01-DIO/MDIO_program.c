@@ -312,9 +312,63 @@ void MDIO_voidSetPinValue (u8 Copy_u8PinNo, u8 Copy_u8PinVal) {
 }
 
 void MDIO_voidGetPinValue (u8 Copy_u8PinNo, u8 * Copy_u8PinVal) {
-
+	u8 Local_u8Port =  Copy_u8PinNo / DIO_U8_PORT_SIZE;
+	u8 Local_u8PinNo = Copy_u8PinNo % DIO_U8_PORT_SIZE;
+	switch (Local_u8Port) {
+	case DIO_U8_PORTA:
+		*Copy_u8PinVal = (GPIOA_IDR >> Local_u8PinNo) & 1;
+		break;
+	case DIO_U8_PORTB:
+		*Copy_u8PinVal = (GPIOB_IDR >> Local_u8PinNo) & 1;
+		break;
+	case DIO_U8_PORTC:
+		*Copy_u8PinVal = (GPIOA_IDR >> Local_u8PinNo) & 1;
+		break;
+	default:
+		/* Report Error */
+	}
 }
 
 void MDIO_voidSetPinMode (u8 Copy_u8PinNo, u8 Copy_u8PinMode) {
+	u8 Local_u8Port  = Copy_u8PinNo / DIO_U8_PORT_SIZE;
+	u8 Local_u8PinNo = Copy_u8PinNo % DIO_U8_PORT_SIZE;
+	Copy_u8PinMode &= 0x0F; // make sure PinMode is 4 bit
 
+	switch (Local_u8Port)
+	{
+	case DIO_U8_PORTA:
+		if (Local_u8PinNo < 8) {
+			GPIOA_CRL &= ~(0xFF << 4 * Local_u8PinNo);
+			GPIOA_CRL |= (Copy_u8PinMode << 4 * Local_u8PinNo);
+		} else if (Local_u8PinNo < 16) {
+			GPIOA_CRH &= ~(0xFF << 4 * (Local_u8PinNo - 8));
+			GPIOA_CRH |= (Copy_u8PinMode << 4 * (Local_u8PinNo - 8));
+		} else {
+			/* Error */
+		}
+		break;
+
+	case DIO_U8_PORTB:
+		if (Local_u8PinNo < 8) {
+			GPIOB_CRL &= ~(0x0F << 4 * Local_u8PinNo);
+			GPIOB_CRL = GPIOB_CRL | (Copy_u8PinMode << 4 * Local_u8PinNo);
+		} else if (Local_u8PinNo < 16) {
+			GPIOB_CRH &= ~(0x0F << 4 * (Local_u8PinNo - 8));
+			GPIOB_CRH = GPIOB_CRH | (Copy_u8PinMode << 4 * (Local_u8PinNo - 8));
+		} else {
+			/* Error */
+		}
+		break;
+
+	case DIO_U8_PORTC:
+		if (Local_u8PinNo >= 13 && Local_u8PinNo <= 15) {
+			GPIOC_CRH &= ~(0x0F << 4 * (Local_u8PinNo - 8));
+			GPIOC_CRH = GPIOC_CRH | (Copy_u8PinMode << 4 * (Local_u8PinNo - 8));
+		}
+		break;
+
+	default:
+		break;
+		/* Report Error */
+	}
 }
